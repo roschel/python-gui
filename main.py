@@ -31,16 +31,19 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("Widgets App")
 
-        checkbox = QCheckBox("This is a checkbox")
-        checkbox.setCheckState(Qt.CheckState.Checked)
+        combobox = QComboBox()
+        combobox.addItems(["One", "Two", "Three"])
 
-        checkbox.stateChanged.connect(self.show_state)
+        combobox.currentIndexChanged.connect(self.index_changed)
+        combobox.currentTextChanged.connect(self.text_changed)
 
-        self.setCentralWidget(checkbox)
+        self.setCentralWidget(combobox)
 
-    def show_state(self, state):
-        print(state == Qt.CheckState.Checked.value)
-        print(state)
+    def index_changed(self, index):
+        print(index)
+
+    def text_changed(self, text):
+        print(text)
 
 
 app = QApplication(sys.argv)
