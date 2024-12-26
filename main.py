@@ -31,15 +31,16 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("Widgets App")
 
-        label = QLabel("Hello")
-        font = label.font()
-        font.setPointSize(30)
-        label.setFont(font)
-        label.setAlignment(
-            Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter
-        )
+        checkbox = QCheckBox("This is a checkbox")
+        checkbox.setCheckState(Qt.CheckState.Checked)
 
-        self.setCentralWidget(label)
+        checkbox.stateChanged.connect(self.show_state)
+
+        self.setCentralWidget(checkbox)
+
+    def show_state(self, state):
+        print(state == Qt.CheckState.Checked.value)
+        print(state)
 
 
 app = QApplication(sys.argv)
