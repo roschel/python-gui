@@ -1,49 +1,19 @@
 import sys
 
-from PySide6.QtCore import QSize
-from PySide6.QtGui import Qt
-from PySide6.QtWidgets import QApplication, QMainWindow, QLabel
+from PySide6.QtGui import QContextMenuEvent, QAction
+from PySide6.QtWidgets import QApplication, QMainWindow, QMenu
 
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setFixedSize(QSize(800, 1000))
-
-        self.label = QLabel("Click in this window")
-        self.setCentralWidget(self.label)
-        self.setMouseTracking(True)
-
-    def mousePressEvent(self, event):
-        if event.button() == Qt.MouseButton.LeftButton:
-            self.label.setText("mousePressEvent LEFT")
-
-        elif event.button() == Qt.MouseButton.MiddleButton:
-            self.label.setText("mousePressEvent MIDDLE")
-
-        elif event.button() == Qt.MouseButton.RightButton:
-            self.label.setText("mousePressEvent RIGHT")
-
-    def mouseReleaseEvent(self, event):
-        if event.button() == Qt.MouseButton.LeftButton:
-            self.label.setText("mouseReleaseEvent LEFT")
-
-        elif event.button() == Qt.MouseButton.MiddleButton:
-            self.label.setText("mouseReleaseEvent MIDDLE")
-
-        elif event.button() == Qt.MouseButton.RightButton:
-            self.label.setText("mouseReleaseEvent RIGHT")
-
-    def mouseDoubleClickEvent(self, event):
-        if event.button() == Qt.MouseButton.LeftButton:
-            self.label.setText("mouseDoubleClickEvent LEFT")
-
-        elif event.button() == Qt.MouseButton.MiddleButton:
-            self.label.setText("mouseDoubleClickEvent MIDDLE")
-
-        elif event.button() == Qt.MouseButton.RightButton:
-            self.label.setText("mouseDoubleClickEvent RIGHT")
+    def contextMenuEvent(self, event: QContextMenuEvent):
+        context = QMenu(self)
+        context.addAction(QAction("teste 1", self))
+        context.addAction(QAction("teste 2", self))
+        context.addAction(QAction("teste 3", self))
+        context.exec(event.globalPos())
 
 
 app = QApplication(sys.argv)
