@@ -21,7 +21,7 @@ from PySide6.QtWidgets import (
     QLabel,
     QLineEdit,
     QProgressBar,
-    QWidget
+    QWidget, QListWidget, QListWidgetItem
 )
 
 
@@ -31,16 +31,16 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("Widgets App")
 
-        combobox = QComboBox()
-        combobox.addItems(["One", "Two", "Three"])
+        list_widget = QListWidget()
+        list_widget.addItems(["One", "Two", "Three"])
 
-        combobox.currentIndexChanged.connect(self.index_changed)
-        combobox.currentTextChanged.connect(self.text_changed)
+        list_widget.currentItemChanged.connect(self.item_changed)
+        list_widget.currentTextChanged.connect(self.text_changed)
 
-        self.setCentralWidget(combobox)
+        self.setCentralWidget(list_widget)
 
-    def index_changed(self, index):
-        print(index)
+    def item_changed(self, item: QListWidgetItem):
+        print(item.text())
 
     def text_changed(self, text):
         print(text)
