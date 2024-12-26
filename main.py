@@ -1,7 +1,7 @@
 import sys
 
 from PySide6.QtCore import QSize
-from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton
+from PySide6.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QVBoxLayout, QWidget
 
 
 class MainWindow(QMainWindow):
@@ -13,17 +13,19 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("My App")
         self.setFixedSize(QSize(400, 300))
 
-        self.button = QPushButton("Press Me!")
-        self.button.clicked.connect(self.the_button_was_clicked)
-        self.button.setFixedSize(QSize(200, 150))
+        self.label = QLabel()
 
-        self.setCentralWidget(self.button)
+        self.input = QLineEdit()
+        self.input.textChanged.connect(self.label.setText)
 
-    def the_button_was_clicked(self):
-        self.button.setText("You already clicked me.")
-        self.button.setEnabled(False)
-        self.setWindowTitle("My Oneshot App")
-        print("Clicked!")
+        layout = QVBoxLayout()
+        layout.addWidget(self.input)
+        layout.addWidget(self.label)
+
+        container = QWidget()
+        container.setLayout(layout)
+
+        self.setCentralWidget(container)
 
 
 app = QApplication(sys.argv)
