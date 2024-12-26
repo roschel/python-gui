@@ -1,5 +1,6 @@
 import sys
 
+from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QApplication,
     QMainWindow,
@@ -30,33 +31,15 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("Widgets App")
 
-        layout = QVBoxLayout()
-        widgets = [
-            QCheckBox,
-            QComboBox,
-            QDateEdit,
-            QDateTimeEdit,
-            QDial,
-            QDoubleSpinBox,
-            QFontComboBox,
-            QLCDNumber,
-            QLabel,
-            QLineEdit,
-            QProgressBar,
-            QPushButton,
-            QRadioButton,
-            QSlider,
-            QSpinBox,
-            QTimeEdit,
-        ]
+        label = QLabel("Hello")
+        font = label.font()
+        font.setPointSize(30)
+        label.setFont(font)
+        label.setAlignment(
+            Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter
+        )
 
-        for widget in widgets:
-            layout.addWidget(widget())
-
-        central_widget = QWidget()
-        central_widget.setLayout(layout)
-
-        self.setCentralWidget(central_widget)
+        self.setCentralWidget(label)
 
 
 app = QApplication(sys.argv)
