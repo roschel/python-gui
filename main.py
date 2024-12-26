@@ -1,7 +1,7 @@
 import sys
 
 from PySide6.QtCore import QSize
-from PySide6.QtGui import QMouseEvent
+from PySide6.QtGui import Qt
 from PySide6.QtWidgets import QApplication, QMainWindow, QLabel
 
 
@@ -15,18 +15,35 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.label)
         self.setMouseTracking(True)
 
-    def mouseMoveEvent(self, event: QMouseEvent):
-        self.label.setText("mouseMoveEvent")
-        print(event.globalX(), event.globalY(), event.buttons())
-
     def mousePressEvent(self, event):
-        self.label.setText("mousePressEvent")
+        if event.button() == Qt.MouseButton.LeftButton:
+            self.label.setText("mousePressEvent LEFT")
+
+        elif event.button() == Qt.MouseButton.MiddleButton:
+            self.label.setText("mousePressEvent MIDDLE")
+
+        elif event.button() == Qt.MouseButton.RightButton:
+            self.label.setText("mousePressEvent RIGHT")
 
     def mouseReleaseEvent(self, event):
-        self.label.setText("mouseReleaseEvent")
+        if event.button() == Qt.MouseButton.LeftButton:
+            self.label.setText("mouseReleaseEvent LEFT")
+
+        elif event.button() == Qt.MouseButton.MiddleButton:
+            self.label.setText("mouseReleaseEvent MIDDLE")
+
+        elif event.button() == Qt.MouseButton.RightButton:
+            self.label.setText("mouseReleaseEvent RIGHT")
 
     def mouseDoubleClickEvent(self, event):
-        self.label.setText("mouseDoubleClickEvent")
+        if event.button() == Qt.MouseButton.LeftButton:
+            self.label.setText("mouseDoubleClickEvent LEFT")
+
+        elif event.button() == Qt.MouseButton.MiddleButton:
+            self.label.setText("mouseDoubleClickEvent MIDDLE")
+
+        elif event.button() == Qt.MouseButton.RightButton:
+            self.label.setText("mouseDoubleClickEvent RIGHT")
 
 
 app = QApplication(sys.argv)
