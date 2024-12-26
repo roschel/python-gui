@@ -1,27 +1,9 @@
 import sys
 
-from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QApplication,
     QMainWindow,
-    QVBoxLayout,
-    QTimeEdit,
-    QSpinBox,
-    QSlider,
-    QRadioButton,
-    QPushButton,
-    QCheckBox,
-    QComboBox,
-    QDateEdit,
-    QDateTimeEdit,
-    QDial,
-    QDoubleSpinBox,
-    QFontComboBox,
-    QLCDNumber,
-    QLabel,
-    QLineEdit,
-    QProgressBar,
-    QWidget, QListWidget, QListWidgetItem
+    QListWidget, QListWidgetItem, QLineEdit
 )
 
 
@@ -31,18 +13,32 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("Widgets App")
 
-        list_widget = QListWidget()
-        list_widget.addItems(["One", "Two", "Three"])
+        self.line_edit = QLineEdit()
+        self.line_edit.setMaxLength(10)
+        self.line_edit.setPlaceholderText("Enter yout text")
 
-        list_widget.currentItemChanged.connect(self.item_changed)
-        list_widget.currentTextChanged.connect(self.text_changed)
+        # widget.setReadOnly(True) # uncomment this to make readonly
 
-        self.setCentralWidget(list_widget)
+        self.line_edit.returnPressed.connect(self.return_pressed)
+        self.line_edit.selectionChanged.connect(self.selection_changed)
+        self.line_edit.textChanged.connect(self.text_changed)
+        self.line_edit.textEdited.connect(self.text_edited)
 
-    def item_changed(self, item: QListWidgetItem):
-        print(item.text())
+        self.setCentralWidget(self.line_edit)
 
     def text_changed(self, text):
+        print(f"Text changed to... {text}")
+
+    def return_pressed(self):
+        print("return_pressed")
+        self.line_edit.setText("BOOM!")
+
+    def selection_changed(self):
+        print("selection_changed")
+        print(self.line_edit.selectedText())
+
+    def text_edited(self, text):
+        print(f"Text edited to... {text}")
         print(text)
 
 
