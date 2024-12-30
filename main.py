@@ -1,7 +1,7 @@
 import sys
 
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QAction
+from PySide6.QtCore import Qt, QSize
+from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import (
     QApplication,
     QMainWindow, QLabel, QToolBar, QStatusBar
@@ -20,9 +20,11 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(label)
 
         toolbar = QToolBar("My main toolbar")
+        toolbar.setIconSize(QSize(16, 16))
+        toolbar.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
         self.addToolBar(toolbar)
 
-        button_action = QAction("Your Button", self)
+        button_action = QAction(QIcon('bug.png'), "Your Button", self)
         button_action.setStatusTip("This is your button")
         button_action.triggered.connect(self.on_my_toolbar_button_click)
         button_action.setCheckable(True)
