@@ -3,7 +3,7 @@ import sys
 from PySide6.QtGui import QPalette, QColor
 from PySide6.QtWidgets import (
     QApplication,
-    QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QGridLayout
+    QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QGridLayout, QStackedLayout
 )
 
 
@@ -23,12 +23,14 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("My App")
 
-        layout = QGridLayout()
+        layout = QStackedLayout()
 
-        layout.addWidget(Color('red'), 0, 0)
-        layout.addWidget(Color('green'), 1, 0)
-        layout.addWidget(Color('blue'), 1, 1)
-        layout.addWidget(Color('purple'), 2, 0)
+        layout.addWidget(Color('red'))
+        layout.addWidget(Color('green'))
+        layout.addWidget(Color('blue'))
+        layout.addWidget(Color('yellow'))
+
+        layout.setCurrentIndex(3)
 
         widget = QWidget()
         widget.setLayout(layout)
