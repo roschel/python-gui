@@ -4,7 +4,7 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QAction
 from PySide6.QtWidgets import (
     QApplication,
-    QMainWindow, QLabel, QToolBar
+    QMainWindow, QLabel, QToolBar, QStatusBar
 )
 
 
@@ -26,6 +26,8 @@ class MainWindow(QMainWindow):
         button_action.setStatusTip("This is your button")
         button_action.triggered.connect(self.on_my_toolbar_button_click)
         toolbar.addAction(button_action)
+
+        self.setStatusBar(QStatusBar(self))
 
     def on_my_toolbar_button_click(self, s):
         print("click", s)
