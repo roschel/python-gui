@@ -1,41 +1,39 @@
 import sys
 
-from PySide6.QtGui import QPalette, QColor
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QAction
 from PySide6.QtWidgets import (
     QApplication,
-    QMainWindow, QWidget, QTabWidget
+    QMainWindow, QLabel, QToolBar
 )
-
-
-class Color(QWidget):
-    def __init__(self, color: str):
-        super().__init__()
-        self.setAutoFillBackground(True)
-
-        palette = self.palette()
-        palette.setColor(QPalette.Window, QColor(color))
-        self.setPalette(palette)
 
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("My App")
+        self.setWindowTitle("My Awesome App")
 
-        tabs = QTabWidget()
-        tabs.setTabPosition(QTabWidget.West)
-        tabs.setMovable(True)
+        label = QLabel("Hello!")
+        label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        for color in ["red", "green", "blue", "yellow"]:
-            tabs.addTab(Color(color), color)
+        self.setCentralWidget(label)
 
-        self.setCentralWidget(tabs)
+        toolbar = QToolBar("My main toolbar")
+        self.addToolBar(toolbar)
+
+        button_action = QAction("Your Button", self)
+        button_action.setStatusTip("This is your button")
+        button_action.triggered.connect(self.on_my_toolbar_button_click)
+        toolbar.addAction(button_action)
+
+    def on_my_toolbar_button_click(self, s):
+        print("click", s)
 
 
 app = QApplication(sys.argv)
 
 window = MainWindow()
-window.show()
+window.showMaximized()
 
 app.exec()
